@@ -27,9 +27,8 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
+        /* Testing that the url and name of each feed is defined
+         * in the allFeeds object
          */
          it('URL is defined', function() {
            /* loops thru allFeeds and checks that the value of the
@@ -37,32 +36,27 @@ $(function() {
             */
            for (let index of allFeeds) {
              expect(index.url).toBeDefined();
+             expect(index.url.length).not.toBe(0);
            }
          });
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
          it('name is defined', function() {
            /* loops thru allFeeds and checks that the value of the
             * name key is defined
             */
            for (let index of allFeeds) {
              expect(index.name).toBeDefined();
+             expect(index.name.length).not.toBe(0);
            }
          });
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    /* Testing that the menu is hidden by default and that
+     * clicking the menu button toggles its visibility
+     */
     describe('The menu', function() {
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
          it('is hidden by default', function() {
            // gets the body object in the DOM
            const body = document.querySelector('body');
@@ -70,11 +64,6 @@ $(function() {
            expect(body.classList.contains('menu-hidden')).toBe(true);
          });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
           it('toggles visible to hidden', function() {
             const body = document.querySelector('body');
             // gets the button that opens/closes the menu
@@ -89,32 +78,24 @@ $(function() {
 
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /* Testing that entries are actually loading when loadfeed()
+     * is called
+     */
     describe('Initial Entries', function() {
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
          // waits for feed to be loaded
          beforeEach(function(done) {
            loadFeed(0, done);
          });
 
-         // checks that there is more than 0 text within the feed
+         // checks that there is more than 0 entries within the feed
          it('are loaded', function() {
            const feed = document.querySelector('.feed');
-           expect(feed.innerText.length > 0).toBe(true);
+           expect($('.feed .entry').length > 0).toBe(true);
          });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    /* Testing that the feeds are different after loadfeed is called */
     describe('New Feed Selection', function() {
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
          // get feed outside of functions so it can be used in all functions
          const feed = document.querySelector('.feed');
          // array to hold content of loadFeed(0)
@@ -125,9 +106,8 @@ $(function() {
              Array.from(feed.children).forEach(function(entry) {
                firstFeed.push(entry.innerText);
              });
+             loadFeed(1, done);
            });
-
-           loadFeed(1, done);
          });
          // using array to loop thru 2nd feed and then compare it to 1st
          it('content changes', function() {
