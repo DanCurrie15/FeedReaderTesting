@@ -104,7 +104,7 @@ $(function() {
          beforeEach(function(done) {
            loadFeed(0, function() {
              Array.from(feed.children).forEach(function(entry) {
-               firstFeed.push(entry.innerText);
+               firstFeed.push(entry.innerHTML);
              });
              loadFeed(1, done);
            });
@@ -112,7 +112,7 @@ $(function() {
          // using array to loop thru 2nd feed and then compare it to 1st
          it('content changes', function() {
            Array.from(feed.children).forEach(function(entry,index) {
-             expect(entry.innerText === firstFeed[index]).toBe(false);
+             expect(entry.innerHTML === firstFeed[index]).toBe(false);
            });
          });
     });
